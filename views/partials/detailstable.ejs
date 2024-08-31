@@ -1,0 +1,25 @@
+<table>
+    <thead>
+      <tr>
+        <% if (rows.length > 0) { %> <% Object.keys(rows[0]).forEach(key => {
+        %>
+        <th><%= key %></th>
+        <% }) %> <% } %>
+      </tr>
+    </thead>
+    <tbody>
+      <% rows.forEach(row => { %>
+          <tr>
+              <% Object.keys(row).forEach(key => { %>
+                <% if (key === 'release_year' && row[key] instanceof Date) { %>
+                  <td><%= row[key].getFullYear() %></td>
+                <% } else { %>
+                  <td><%= row[key] %></td>
+                <% } %>
+              <% }) %>
+              <td><form action="/delete/<%= row.gameid %>" method="post"><button type="submit">Delete row</button></form></td>
+              <td><form action="/gamedetails/<%= row.gameid %>" method="get"><button type="submit">Details</button></form></td>
+            </tr>
+      <% }) %>
+    </tbody>
+  </table>
